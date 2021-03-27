@@ -1,0 +1,68 @@
+<div style="color: red" *ngIf="error$ | async as error">
+  {{error}}
+</div>
+<div class="row vh-100" style="padding-top: 30px; padding-bottom: 20px" *ngIf="chatClient">
+  <div class="col-4">
+    <div class="card h-100">
+      <div class="card-header">
+        Clients Online
+      </div>
+      <div class="card-body">
+        <div *ngIf="clients$ | async as clients">
+          <ul>
+            <li *ngFor="let client of clients">
+              {{client.name}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="card h-100">
+      <div class="card-header">
+        <h5>Hello {{chatClient.name}}</h5>
+      </div>
+      <div class="card-body">
+        <h4 *ngFor="let chatMessage of messages">
+          <h6>{{chatMessage.date}}</h6>
+          <div class="card flex-row flex-wrap">
+            <div class="card-header border-0">
+              <img src="//placehold.it/40" alt="">
+              <h6 class="card-title">{{chatMessage.sender.name}}</h6>
+            </div>
+            <div class="card-block px-2">
+              <p class="card-text">{{chatMessage.message}}</p>
+            </div>
+          </div>
+        </h4>
+        <h6 style="color: grey" *ngFor="let client of clientsTyping">{{client.name}} is typing</h6>
+      </div>
+      <div class="card-footer">
+        <form class="form-inline">
+          <div class="input-group flex-fill">
+            <input type="text" class="form-control" [formControl]="message" placeholder="Write message here..">
+            <button type="button" (click)="sendMessage()" class="btn btn-primary">Send Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!chatClient" class="row align-items-center justify-content-center vh-100">
+  <div class="card">
+    <div class="card-body">
+      <h1>Welcome to ChatApp</h1>
+      <form>
+        <div class="form-group">
+          <label for="nameFc">Enter Name:</label>
+          <input type="text" [formControl]="nameFC" id="nameFc">
+        </div>
+        <div class="row justify-content-end">
+          <button type="button" (click)="sendName()" class="btn btn-success">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
