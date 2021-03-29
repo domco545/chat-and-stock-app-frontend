@@ -1,1 +1,50 @@
-<p>stock works!</p>
+<!--<button type="button" class="btn btn-primary mt-2" (click)="createStock()">Create Stock</button>-->
+<!--<h4 *ngFor="let stock of stocks"> {{stock.name}}</h4>-->
+<div style="color: red" *ngIf="error$ | async as error">
+  {{error}}
+</div>
+<div class="row vh-100" style="padding-top: 30px; padding-bottom: 20px">
+  <div class="col-8">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Stock</th>
+        <th scope="col">Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let stock of stocks" (click)="selectStock(stock)">
+        <td>{{ stock.name }}</td>
+        <td>{{ stock.price | number }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-4">
+    <div class="card h-50">
+      <div class="card-header">
+        <h3>Detail</h3>
+      </div>
+      <div class="card-body">
+        <div class="stock-detail h-100" *ngIf="selectedStock as stock else noStockSelected">
+          <h4 class="text-center">{{stock.name}}</h4>
+          <div>
+            <strong>Description:</strong>
+            <p>{{stock.description}}</p>
+          </div>
+          <form class="form-inline">
+            <div class="input-group">
+              <input type="number" class="form-control" [formControl]="priceFc">
+              <button type="button" (click)="changePrice()" class="btn btn-primary ml-1">save price</button>
+            </div>
+          </form>
+        </div>
+        <ng-template #noStockSelected><h5>No Stock is selected</h5></ng-template>
+      </div>
+      <div class="card-footer" *ngIf="selectedStock">
+        <button type="button" (click)="updateStock()" class="btn btn-warning ml-1">Update</button>
+        <button type="button" (click)="deleteStock()" class="btn btn-danger ml-1">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
