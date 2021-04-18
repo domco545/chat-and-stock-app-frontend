@@ -17,7 +17,7 @@ import {ListenForStocks, StopListeningForStocks} from './state/stock.actions';
 })
 export class StockComponent implements OnInit, OnDestroy {
   @Select(StockState.stocks) stocks$: Observable<Stock[]> | undefined;
-
+  // stocks$ = this.stockService.listenForStocks();
   unsubscribe$ = new Subject();
   // stocks: Stock[] | undefined;
   error$: Observable<string> | undefined;

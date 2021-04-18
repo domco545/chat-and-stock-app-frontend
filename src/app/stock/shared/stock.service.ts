@@ -4,6 +4,7 @@ import {StockDto} from './stock.dto';
 import {Observable} from 'rxjs';
 import {AllStocksDto} from './all-stocks.dto';
 import {ChangePriceDto} from './change-price.dto';
+import {Stock} from './stock';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +22,9 @@ export class StockService {
       .fromEvent<string>('error');
   }
 
-  listenForStocks(): Observable<AllStocksDto>{
+  listenForStocks(): Observable<Stock[]>{
     return this.socket
-      .fromEvent<AllStocksDto>('allStocks');
+      .fromEvent<Stock[]>('allStocks');
   }
 
   disconnect(): void{

@@ -29,9 +29,9 @@ export class StockState {
 
   @Action(ListenForStocks)
   getStocks(ctx: StateContext<StockStateModel>): void {
-    this.clientsUnsub = this.stockService.listenForStocks()
-      .subscribe(stockDto => {
-        ctx.dispatch(new UpdateStocks(stockDto.stocks));
+    this.stockService.listenForStocks()
+      .subscribe(stocks => {
+        ctx.dispatch(new UpdateStocks(stocks));
       });
   }
 
@@ -43,11 +43,11 @@ export class StockState {
   }
 
   @Action(UpdateStocks)
-  updateStocks(ctx: StateContext<StockStateModel>, uc: UpdateStocks): void {
+  updateStocks(ctx: StateContext<StockStateModel>, us: UpdateStocks): void {
     const state = ctx.getState();
     const newState: StockStateModel = {
       ...state,
-      stocks: uc.stocks
+      stocks: us.stocks
     };
     ctx.setState(newState);
   }
