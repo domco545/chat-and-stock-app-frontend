@@ -3,8 +3,9 @@
 <div style="color: red" *ngIf="error$ | async as error">
   {{error}}
 </div>
-<div class="row vh-100" style="padding-top: 30px; padding-bottom: 20px">
+<div class="row vh-100" style="padding-top: 30px; padding-bottom: 20px" *ngIf="stocks$ | async as stocks">
   <div class="col-8">
+    <button type="button" (click)="createStock()" class="btn btn-primary ml-1">New stock</button>
     <table class="table table-striped">
       <thead>
       <tr>
@@ -15,7 +16,7 @@
       <tbody>
       <tr *ngFor="let stock of stocks" (click)="selectStock(stock)">
         <td>{{ stock.name }}</td>
-        <td>{{ stock.price | number }}</td>
+        <td>{{ stock.price | number }}€</td>
       </tr>
       </tbody>
     </table>

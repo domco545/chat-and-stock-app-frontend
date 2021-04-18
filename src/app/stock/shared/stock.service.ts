@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Stock} from './stock';
 import {SocketStock} from '../../app.module';
 import {StockDto} from './stock.dto';
 import {Observable} from 'rxjs';
-import {ChatMessage} from '../../chat/shared/chat-message';
 import {AllStocksDto} from './all-stocks.dto';
 import {ChangePriceDto} from './change-price.dto';
 
@@ -29,11 +27,11 @@ export class StockService {
   }
 
   disconnect(): void{
-    this.socket.disconnect();
+    // this.socket.disconnect();
   }
 
   connect(): void{
-    this.socket.connect();
+    // this.socket.connect();
   }
 
   deleteStock(id: string | undefined): void {

@@ -5,6 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {Socket, SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgxsModule} from '@ngxs/store';
+import {environment} from '../environments/environment';
+import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {StockState} from './stock/state/stock.state';
 
 // const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 @Injectable()
@@ -33,7 +38,12 @@ export class SocketStock extends Socket {
     BrowserModule,
     AppRoutingModule,
     SocketIoModule,
-    NgbModule
+    NgbModule,
+    NgxsModule.forRoot([], {
+      developmentMode: !environment.production
+    }),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
   ],
   providers: [SocketChat, SocketStock],
   bootstrap: [AppComponent]
