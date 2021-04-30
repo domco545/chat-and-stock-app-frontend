@@ -17,7 +17,7 @@ export interface StockStateModel {
 })
 @Injectable()
 export class StockState {
-  private clientsUnsub: Subscription | undefined;
+  private stockUnsub: Subscription | undefined;
 
   constructor(private stockService: StockService) {
   }
@@ -29,7 +29,7 @@ export class StockState {
 
   @Action(ListenForStocks)
   getStocks(ctx: StateContext<StockStateModel>): void {
-    this.stockService.listenForStocks()
+    this.stockUnsub = this.stockService.listenForStocks()
       .subscribe(stocks => {
         ctx.dispatch(new UpdateStocks(stocks));
       });
@@ -37,8 +37,8 @@ export class StockState {
 
   @Action(StopListeningForStocks)
   stopListeningForStocks(ctx: StateContext<StockStateModel>): void {
-    if (this.clientsUnsub) {
-      this.clientsUnsub.unsubscribe();
+    if (this.stockUnsub) {
+      this.stockUnsub.unsubscribe();
     }
   }
 

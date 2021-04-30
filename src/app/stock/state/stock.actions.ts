@@ -5,7 +5,7 @@ export class ListenForStocks {
 }
 
 export class StopListeningForStocks {
-  static readonly type = '[Stock] Listen For Stocks';
+  static readonly type = '[Stock] Stop Listening For Stocks';
 }
 
 export class DeleteStock {
